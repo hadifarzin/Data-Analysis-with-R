@@ -29,9 +29,28 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
+
+Since the late 1960s, public agencies, particularly in the United States and Canada, have tried to increase the use of carpooling and vanpooling through transportation demand management strategies. These strategies have included trip reduction ordinances, construction of carpool lanes and park-and-ride lots, and the use of telephonic and computerized ridematching. How well have they succeeded? In the United States, carpooling peaked during the energy crisis of the 1970s. The share of Americans carpooling to work dropped from 20 percent in 19701 to only 9 percent in 20142 (see Figure bellow)
+
+<p align="center">
+![](market_share.png){width=90%}
+<em>The decline in carpooling and the growth in commuters driving alone in the United
+States, 1980–2013. Source: [1]</em>
+<br>
+</br>
+
 Nowadays we are witnessing the growth of rid-sharing popularity and the amount of data that are creating in these applications even every minute and we are facing a huge volume of data (big data) generating in this business ecosystem. Over the past decade, ride-hailing services such as Uber, Lyft, Gett, Juno, and Via have revolutionized the transportation space. However, profitability for drivers varies across all these platforms in complicated ways. Drivers are forced to make mental calculations based on the time of day, surge rate, wait time to pick up a rider, etc. for each driving service, and choose to ride for a given service at any point based on the optimization of such factors. 
+
+Based on type, the market is segmented into E-hailing (electronic hailing) and station-based (traditionally request riding) types. The e-hailing segment holds a major ride-sharing market share in the global market. E-hailing ride services provide transportation to passengers by hiring a personal driver through a contract or employment basis. In e-hailing ride services, the rides are booked in advance and paid for through the smartphone application of the transportation network company. Uber, Ola, Lyft, and Gett are prominent players in the e-hailing ride business. For instance, Didi Chuxing a leading company, takes over 99, Brazil’s leading ride-hail app. The company invests in smart transportation services and AI capabilities through operations and partnerships. For instance, BMW has launched the car-sharing service ReachNow with BMW 370 series cars for short and long-term rental and delivery services.
+
+
+<p align="left">
+![](ehailing.png){width=50%}
+<em>Global ride-sharing market share by type, 2018. Source [2]</em>
+
  
-The purpose of this service is to share a ride with others and earn extra money.  There are different varieties of ride-sharing services around the globe with different business models and a variety of services. In this ecosystem, there are three main players: Rider, Passenger, and the platform owner. upon each ride, we see that some data is generated. For example, some information that is generated in one ride is the date and time of ride request, the origin and destination location, the distance, the fee, and the duration time of the trip. Also, we can add some extra information to these data such as the weather condition and temperature, the traffic volume, the ratings, number of passengers, and so on. 
+In a rid-sharing service the purpose is to share a ride with others and earn extra money.  There are different varieties of ride-sharing services around the globe with different business models and a variety of services. In this ecosystem, there are three main players: Rider, Passenger, and the platform owner. upon each ride, we see that some data is generated. For example, some information that is generated in one ride is the date and time of ride request, the origin and destination location, the distance, the fee, and the duration time of the trip. Also, we can add some extra information to these data such as the weather condition and temperature, the traffic volume, the ratings, number of passengers, and so on. 
+
  
 # Objectives
 
@@ -41,7 +60,7 @@ For this purpose, ride-share application providers offer their riders the possib
  
 # Dataset
 
-There are some ride-sharing applications in the market but a few of them have published public datasets. The data collection for this app idea was by no means straightforward. To avoid having their information used for competitive purposes, most ride-share companies will do everything in their power to protect their data. However, with some deliberation, we can actually discover a couple of backdoor methods to access these data. All ride-share apps in NYC are under the Taxi and Limousine Commission (TLC) and are required by law to submit data on every ride that occurs. With some investigation, the keen observer will find that TLC is part of the NYC Open Data initiative, which was established to increase transparency in state and city affairs. While the data these rideshare companies do provide are incredibly shallow (minimal information per ride), we can still pull quite a bit of information from them. To start us off, however, Iâm using Uber data from April 2014 that has a slightly different format to the TLC dataset. This dataset includes more than 4.5 million trips within the 6 months (April to September 2014) and is composed of the date and time of the trip and the location of the request origin. Below you can see the head and tail of the table.
+There are some ride-sharing applications in the market but a few of them have published public datasets. The data collection for this app idea was by no means straightforward. To avoid having their information used for competitive purposes, most ride-share companies will do everything in their power to protect their data. However, with some deliberation, we can actually discover a couple of backdoor methods to access these data. All ride-share apps in NYC are under the Taxi and Limousine Commission (TLC) and are required by law to submit data on every ride that occurs. With some investigation, the keen observer will find that TLC is part of the NYC Open Data initiative, which was established to increase transparency in state and city affairs. While the data these rideshare companies do provide are incredibly shallow (minimal information per ride), we can still pull quite a bit of information from them. To start us off, however, IÃ¢ÂÂm using Uber data from April 2014 that has a slightly different format to the TLC dataset. This dataset includes more than 4.5 million trips within the 6 months (April to September 2014) and is composed of the date and time of the trip and the location of the request origin. Below you can see the head and tail of the table.
 
 First we should load some required packages:
 ```{r import libraries, echo=TRUE, message=FALSE, warning=FALSE}
@@ -119,7 +138,7 @@ uber[1:5,] %>%
 ```
 
 ### 3. Create Time columns
-At this stage, I create a new column called Times to have the Time separatly. Also other three new columns for storing Hour, Minute ,and Second of the trip.
+At this stage, I create a new column called Times to have the Time separately. Also other three new columns for storing Hour, Minute ,and Second of the trip.
 
 ```{r Split the Time, echo=TRUE, message=FALSE, warning=FALSE}
 uber$Time   <- format(uber$Date.Time, format="%H:%M:%S") # Create the Time column 
@@ -135,10 +154,10 @@ uber[1:5,] %>%
   kable_styling(bootstrap_options='striped' , position= 'left', full_width = FALSE)
 ```
 
-Now the data is ready to analyze. Let's GO and have a fun...diving to the data ;)
+Now the data is ready to analyze. Let's GO and have fun...diving into the data ;)
 
 # Method
-Here in this section, I will explain how I analyzed the ride-sharing dataset. As I mentioned above the dataset I want to analyze is belonged to the Uber application which was released by this company in 2015. The analysis has been done in two main methods. The first method is time analysis and the second is location analysis. Based on these two types of analysis I am going to achieve some results that show what is the best time and location for uber drivers to work in New York city.
+Here in this section, I will explain how I analyzed the ride-sharing dataset. As I mentioned above the dataset I want to analyze is belonged to the Uber application which was released by this company in 2015. The analysis has been done in two main methods. The first method is time analysis and the second is location analysis. Based on these two types of analysis I am going to achieve some results that show what is the best time and location for uber drivers to work in New York City.
 
 ### 1. Time analysis
 
@@ -189,7 +208,7 @@ ggplot(uber_group_month, aes(month, Total)) +
             scale_y_continuous(labels = comma)
 ```
 
-The result shows that the trips mostly occur in September and that could because of starting the educational season (school and university).
+The result shows that the trips mostly occur in September and that could be because of starting the educational season (school and university).
 
 
 
@@ -199,7 +218,7 @@ The result shows that the trips mostly occur in September and that could because
 
 ### 1.3. Trips in each month per hour in a day
 
-Now let's group by month and see how the number of trips distributed in each month per hour in a day. For this purpose, I grouped the dataset by two attributes hour and month.
+Now let's group by month and see how the number of trips is distributed in each month per hour in a day. For this purpose, I grouped the dataset by two attributes hour and month.
 
 
 ```{r Group by the Hour and Month, echo=TRUE, message=FALSE, warning=FALSE}
@@ -229,9 +248,9 @@ uber_group_day_month <- uber %>%
              dplyr::summarize(Total = n())
 ```
 
-You see the data table with the total number of trips per day in each month:
+You see the data table with the total number of trips per day on each month:
 
-Ploting the bar chart to illustrate the above table.
+Plotting the bar chart to illustrate the above table.
 ```{r plot count trips in a day and months, echo=TRUE, message=FALSE, warning=FALSE}
 colors = c("#CC1011", "#665555", "#05a399", "#cfcaca", "#f5e840", "#0683c9", "#e075b0") # deffine collors map for ggplot
 ggplot(uber_group_day_month, aes(day, Total, fill = month)) + 
@@ -488,8 +507,12 @@ In this section user can select the month he/she wants to analyse. User can sele
 Another input that user can choose is the weekday. This option is applied when the type of analysis set on "Analysis based on Day Hour".
 
 ### References 
-[1] https://github.com/fivethirtyeight/uber-tlc-foil-response/tree/master/uber-trip-data
+[1] Steven Polzin and Alan E. Pisarski, Commuting in America 2013, AASHTO, 2015, http://traveltrends.transportation.org/Pages/default.aspx
 \
-[2] https://towardsdatascience.com/analyzing-rideshare-data-a7c83f95cd65
+[2] Ride Sharing Market Size, Share & Industry Analysis, By Type (E-Hailing and Station Based), By Commute Type (Long Distance, Corporate, and Inter City), By Application Type (iOS, Android, and Others) and Regional Forecasts, 2019-2026
 \
-[3] https://www.kaggle.com/theoddwaffle/uber-data-analysis
+[3] https://github.com/fivethirtyeight/uber-tlc-foil-response/tree/master/uber-trip-data
+\
+[4] https://towardsdatascience.com/analyzing-rideshare-data-a7c83f95cd65
+\
+[5] https://www.kaggle.com/theoddwaffle/uber-data-analysis
